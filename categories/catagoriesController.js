@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Category = require('./categoriy.js');
+const Category = require('./categoriy');
 const slugfy = require('slugify');
 
 

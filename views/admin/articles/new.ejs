@@ -1,31 +1,45 @@
 <%- include ('../../partials/header.ejs') %>
   <%- include ('../../partials/nav.ejs') %>
-    <div class="container">
-      <hr>
-      <div class="card">
+  <div class="container">
+    <hr>
+    <div class="card"> 
         <div class="card-header">
-          Cadastrar de Artigo
+            <h2>Novo artigo</h2>
         </div>
         <div class="card-body">
-          <form action="/categories/save" method="post">
-            <input class="form-control" type="text" name="title" placeholder="Defina o título da categoria"><br>
-            <textarea id="article" class="form-control" placeholder="Cadastrar Artigos"></textarea>
-            <br>
-            <button class="btn btn-success">cadastrar</button>
-          </form>
+            <form method="POST" action="/articles/save">
+                <input class="form-control" type="text" name="title" placeholder="Defina o título do artigo"><br>
+                <textarea class="form-control" placeholder="Escreva o artigo aqui!" name="body" id="article" maxlength="200"></textarea><br>
+                <label>Categoria</label>
+                <select name="category" class="form-control">
+                    <% categories.forEach((category) => { %>
+                        <option value="<%= category.id %>"><%= category.title %></option>
+                    <% }) %>
+                </select>
+                <br>
+                <button class="btn btn-success">Cadastrar</button>
+            </form>
         </div>
-      </div>
     </div>
-    
+</div>
 
 
-  
     <%- include ('../../partials/footer.ejs') %>
-<script>
-  tinymce.init({
- selector:"#article",
- plugins:['table'] ,
- toolbars:['table,image']
 
-  });
-</script>
+      <script>
+        tinymce.init({
+          language: 'pt_BR',
+          selector: '#article',
+          height: 200,
+          menubar: true,
+          plugins: [
+            'autolink ', 'link ', 'image', 'lists', 'print', 'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 'insertdatetime', 'media', 'save', 'table', 'paste', 'emoticons'
+          ],
+          toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        })
+ 
+      </script>

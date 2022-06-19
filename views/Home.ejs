@@ -1,10 +1,26 @@
 <%- include ('partials/header.ejs') %>
-  <%- include ('partials/nav.ejs') %>
+  <%- include ('partials/hoomenavbar.ejs') %>
 
     <body>
+  
       <div class="container">
-        <h1>Olá Mundo !!</h1>
+        <hr>
+        <div class="jumbotron">
+          <h1 class="display-4">Bem Vindo ao Blogão</h1>
+          <p class="lead">Este e um exercico de aprendisagem </p>
+          <hr class="my-4">
+          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </div>
+        <hr>
+        <% article.forEach(article => {%>
+         <div class="card">
+          <div class="card-header"><%= article.title %> </div>
+          <div class="card-body"><a class="btn btn-success" href="/<%article.slug%> ">Ler Artigo</a></div>
 
+        </div>
+        <br>
+          
+        <%}); %> 
       </div>
     </body>
     <%- include ('partials/footer.ejs') %>

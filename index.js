@@ -27,8 +27,26 @@ connection
 app.use('/', categoriesController);
 app.use('/', articlesController);
 app.get('/', (req, res) => {
-	res.render('home');
+	Article.findAll().then(article=>{
+		res.render('home',{article:article});
+	})
 });
+app.get("/:slug",(req,res)=>{
+	var slug=req.params.slug;
+	Article.findOne({
+		where:{slug:slug}
+	}).then(article => {
+		if (article != undefined) {
+			res.render("article",{article:article});
+			
+		}else{
+			res.redirect('/')
+		}
+	}).catch(err=>{
+		res.render("/");
+	})
+
+})
 app.listen(8000, () => {
 	console.log('O servidor esta funcionando');
 });

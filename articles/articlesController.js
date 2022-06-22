@@ -26,6 +26,8 @@ router.post("/articles/save",(req,res)=>{
 		categoryId:categoy
 	}).then(()=>{
 		res.redirect("/admin/articles");
+	}).catch((e)=>{
+		console.log(e);
 	})
 })
 

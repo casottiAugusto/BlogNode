@@ -7,11 +7,11 @@ const Article = connection.define('articles', {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	body: {
+	slug: {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	slug: {
+	body: {
 		type: Sequelize.TEXT,
 		allowNull: false
 	}
@@ -19,6 +19,6 @@ const Article = connection.define('articles', {
 
 Category.hasMany(Article);
 Article.belongsTo(Category);
-// Article.sync({force:true});
+//Article.sync({force:true});
 
 module.exports = Article;

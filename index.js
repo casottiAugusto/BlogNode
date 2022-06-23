@@ -7,7 +7,6 @@ const articlesController = require('./articles/articlesController');
 const Article = require('./articles/article');
 const Category = require('./categories/categoriy');
 
-
 //View Enginer
 app.set('view engine', 'ejs');
 //Body parser
@@ -19,7 +18,7 @@ app.use(express.static('public'));
 connection
 	.authenticate()
 	.then(() => {
-		console.log('Concxão feita com sucesso');
+		//console.log('Concxão feita com sucesso');
 	})
 	.catch((e) => {
 		console.log(e);
@@ -27,55 +26,63 @@ connection
 //Pasando o controller para aplicação
 app.use('/', categoriesController);
 app.use('/', articlesController);
+
 //Rota Principla
 app.get('/', (req, res) => {
 	Article.findAll({
-		order:[
-			['id','desc']
-		]		
-	}).then(article=>{
-			res.render('home',{article:article});
-	})
-})
-//Rota do Slug
-app.get("/:slug",(req, res) => {
+		order: [ [ 'id', 'desc' ] ]
+	}).then((article) => {
+		Category.findAll().then((categories)=>{
+			res.render("index", {article: article,categories:categories})
+		})
+		
+	});
+});
+
+//Rota do Slug para acessar os artigos 
+app.get('/:slug', (req, res) => {
 	var slug = req.params.slug;
 	Article.findOne({
-			where: {
-					slug:slug
+		where: {slug:slug}
+	})
+		.then((article) => {
+			if (article != undefined) {
+				Category.findAll().then((categories)=>{
+					res.render("article",{article:article,categories:categories})
+				})
+				
+			} else {
+				res.redirect('/');
 			}
-	}).then(article => {
-			if(article != undefined){
-				res.render("article",{article:article})
-			}else{
-					res.redirect("/");
-			}
-	}).catch( err => {
-			res.redirect("/");
-	});
-})
-//Rota cartegoria slug 
-app.get("/category/:slug",(req, res) => {
+		})
+		.catch((err) => {
+			res.redirect('/');
+		});
+});
+//Rota cartegoria slug
+app.get('/category/:slug', (req, res) => {
 	var slug = req.params.slug;
 	Category.findOne({
-			where: {
-					slug: slug
-			},
-			include: [{model: Article}]
-	}).then( category => {
-			if(category != undefined){
-					Category.findAll().then(categories => {
-							res.render("home",{articles: category.articles,categories: categories});
-					});
-			}else{
-					res.redirect("/");
-			}
-	}).catch( err => {
-		console.log(err)
-			res.redirect("/");
+		where: {
+			slug: slug
+		},
+		include: [ { model: Article } ]
 	})
-})
-//Rota Server 
+		.then((category) => {
+			if (category != undefined) {
+				Category.findAll().then(categories=>{
+				res.render("index", { articles: category.Article,categories:categories });
+				})
+			} else {
+				console.log(category)
+				res.redirect('/');
+			}
+		})
+		.catch((err) => {
+			res.redirect('/');
+		});
+});
+//Rota Server
 app.listen(8000, () => {
 	console.log('O servidor esta funcionando');
 });

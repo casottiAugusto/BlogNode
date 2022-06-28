@@ -4,7 +4,7 @@
   "description": "Criando um blog em node.js  como painel administrativo.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev":"nodemon index.js" 
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,8 @@
     "sequelize": "^6.20.0",
     "slugify": "^1.6.5",
     "tinymce": "^6.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
   }
 }

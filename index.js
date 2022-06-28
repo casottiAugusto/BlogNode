@@ -31,11 +31,10 @@ app.use('/', articlesController);
 app.get('/', (req, res) => {
 	Article.findAll({
 		order: [ [ 'id', 'desc' ] ]
-	}).then((article) => {
+	}).then((articles) => {
 		Category.findAll().then((categories)=>{
-			res.render("index", {article: article,categories:categories})
+			res.render("index",{article: articles,categories:categories})
 		})
-		
 	});
 });
 
@@ -49,9 +48,9 @@ app.get('/:slug', (req, res) => {
 			if (article != undefined) {
 				Category.findAll().then((categories)=>{
 					res.render("article",{article:article,categories:categories})
-				})
-				
-			} else {
+			})
+			
+		} else {
 				res.redirect('/');
 			}
 		})
@@ -71,10 +70,11 @@ app.get('/category/:slug', (req, res) => {
 		.then((category) => {
 			if (category != undefined) {
 				Category.findAll().then(categories=>{
-				res.render("index", { articles: category.article,categories:categories });
+				res.render("index", { article: category.articles,categories:categories });
 				})
+				
 			} else {
-				console.log(category)
+			
 				res.redirect('/');
 			}
 		})

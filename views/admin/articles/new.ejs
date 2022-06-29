@@ -22,38 +22,24 @@
         </div>
     </div>
 </div>
-
-
     <%- include ('../../partials/footer.ejs') %>
-
-      <script>
-        let areate =document.querySelector('#article');
-        console.log(areate);
-        areate.addEventListener('kepress',(e)=>{
-          let inputlhent=areate.value.lenght;
-          maxlenght =10;
-          if (inputlhent>=maxlenght) {
-            console.log("Limite do Campo ")
-            
-          }
-        })
-
-    
+    <script>
         tinymce.init({
-          language: 'pt_BR',
-          selector: '#article',
-          height: 200,
-         
-         
-          menubar: true,
-          plugins: [
-            'autolink ', 'link', 'image', 'lists',  'preview',  'searchreplace',  'fullscreen', 'insertdatetime', 'media', 'save', 'table',  'emoticons',
-          ],
-          toolbar: 'undo redo | formatselect | ' +
-            'bold italic backcolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat |'+ 'link' + 'table' + 'image' + 'lists' +'print',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        });
+           language: 'pt_BR',
+           selector: '#article',
+           height: 500,
+          
+          
+           menubar: true,
+           plugins: [
+             'autolink ', 'link', 'image', 'lists',  'preview',  'searchreplace',  'fullscreen', 'insertdatetime', 'media', 'save', 'table',  'emoticons',
+           ],
+           toolbar: 'undo redo | formatselect | ' +
+             'bold italic backcolor | alignleft aligncenter ' +
+             'alignright alignjustify | bullist numlist outdent indent | ' +
+             'removeformat |'+ 'link' + 'table' + 'image' + 'lists' +'print',
+           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+         });
+      
+        </script>
 
-       </script>

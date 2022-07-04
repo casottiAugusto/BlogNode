@@ -8,15 +8,24 @@
         </div>
         <div class="card-body">
           <form method="POST" action="/">
-            <input class="form-control" type="text" name="title"><br>
-            <textarea class="form-control" name="body" id="article" value="<%-article.bod%>"></textarea><br>
+            <input class="form-control" type="text" name="title" value="<%- article.title %> ">
+            <br>
+            <textarea class="form-control" name="body" id="article" >
+              <%- article.body %>
+            </textarea><br>
             <select name="category" class="form-control">
               <% categories.forEach((category)=> { %>
-                <option value="<%= category.id %>">
-                  <%= category.title %>
+                
+                  <option value="<%= category.id %>" <%= category.title %>></option>
+               
+           
+              
+                
+                  
                 </option>
                 <% }) %>
             </select>
+            <% console.log(categories) %> 
 
             <br>
             <button class="btn btn-success">Atualizar</button>
@@ -27,7 +36,7 @@
     <div id="content" style="display:none ;">
       <%- article.body %> 
     </div>
-
+ 
 
     <%- include ('../../partials/footer.ejs') %>
     <script>
@@ -40,10 +49,7 @@
          menubar: true,
          plugins: [
            'autolink ', 'link', 'image', 'lists',  'preview',  'searchreplace',  'fullscreen', 'insertdatetime', 'media', 'save', 'table',  'emoticons',
-         ],
-         init_instance_callback:()=>{
-          tinymce.activeEditor.setContent(document.getElementById('content').innerHTML);
-         },
+         ],      
          toolbar: 'undo redo | formatselect | ' +
            'bold italic backcolor | alignleft aligncenter ' +
            'alignright alignjustify | bullist numlist outdent indent | ' +

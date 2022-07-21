@@ -82,6 +82,8 @@ router.post('/articles/delete', (req, res) => {
 		res.redirect('/admin/articles');
 	}
 });
+
+// Rota de paginação
 router.get("/articles/page/:num",(req,res)=>{
 	let page =req.params.num;
 	let offset =0;
@@ -92,8 +94,9 @@ router.get("/articles/page/:num",(req,res)=>{
 		offset = (parseInt(page) -1)* 2;
 	}
 	Article.findAndCountAll({
-		limit: 2,
-		offset: offset		
+		limit: 4,
+		offset: offset,
+		order: [ [ 'id', 'desc' ] ]		
 	}).then(articles=>{
 		let next;
 		if (offset +4>=articles.count) {
@@ -102,10 +105,15 @@ router.get("/articles/page/:num",(req,res)=>{
 			next= true;
 		}
 		let result={
+			page:parseInt(page),
 			next:next,
 			articles:articles
 		}
-		res.json(result);
+		Category.findAll().then(categories=>{
+			res.render("admin/articles/page",{result:result,categories:categories})
+		})
+		
+		
 	})
 })
 module.exports = router;

@@ -1,0 +1,66 @@
+<%- include ('../../partials/header.ejs') %>
+  <%- include ('../../partials/nav.ejs') %>
+    <div class="container">
+      <hr>
+      <div class="card">
+        <div class="card-header">
+          <h2>Editar Artigo</h2>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="/admin/update">
+            <input type="hidden" value=" <%=article.id%> " name="idArticle" >
+           
+            <input class="form-control" type="text" name="title" value="<%- article.title %> ">
+            <br>
+            <textarea class="form-control" name="body" id="article" >
+              <%- article.body %>
+            </textarea><br>
+            <select name="category" class="form-control">
+              <% categories.forEach((category)=> { %>
+                <% if (category.id == article.categoryId) { %>
+                  <option value="<%= category.id %>" selected >
+                    <%= category.title %>
+                  </option>
+                 
+                <% }else{ %>
+                  <option value="<%= category.id %>" >
+                    <%= category.title %>
+                  </option>
+                  <% } %> 
+             
+            </option>
+              <% }) %>
+            </select>
+         
+
+            <br>
+            <button class="btn btn-success">Atualizar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="content" style="display:none ;">
+      <%- article.body %> 
+    </div>
+ 
+
+    <%- include ('../../partials/footer.ejs') %>
+    <script>
+      tinymce.init({
+         language: 'pt_BR',
+         selector: '#article',
+         height: 500,
+        
+        
+         menubar: true,
+         plugins: [
+           'autolink ', 'link', 'image', 'lists',  'preview',  'searchreplace',  'fullscreen', 'insertdatetime', 'media', 'save', 'table',  'emoticons',
+         ],      
+         toolbar: 'undo redo | formatselect | ' +
+           'bold italic backcolor | alignleft aligncenter ' +
+           'alignright alignjustify | bullist numlist outdent indent | ' +
+           'removeformat |'+ 'link' + 'table' + 'image' + 'lists' +'print',
+         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+       });
+    
+      </script>

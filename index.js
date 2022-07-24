@@ -2,11 +2,20 @@ const express = require('express');
 const app = express();
 const bodyParse = require('body-parser');
 const connection = require('./Database/connection');
+//Controller e Modúlo 
 const categoriesController = require('./categories/catagoriesController');
+const Category = require('./categories/category');
+//Controller e Modúlo
 const articlesController = require('./articles/articlesController');
 const Article = require('./articles/article');
-const Category = require('./categories/categoriy');
-
+//Contorler e Modúle
+const UserController=require("./user/UserController");
+const User =require("./user/User");
+/*
+usuário padrao 
+usuário: denis.homenick@hotmail.com
+senha:l5GfBf
+*/
 //View Enginer
 app.set('view engine', 'ejs');
 //Body parser
@@ -26,6 +35,7 @@ connection
 //Pasando o controller para aplicação
 app.use('/', categoriesController);
 app.use('/', articlesController);
+app.use('/',UserController);
 
 //Rota Principla
 app.get('/', (req, res) => {

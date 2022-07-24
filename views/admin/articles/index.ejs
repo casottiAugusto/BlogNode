@@ -7,14 +7,23 @@
   <hr>
   <table class="table table-bordered">
     <tbody>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th>Slug</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
       <% articles.forEach(article => {%>
         <tr>
           <td><%=article.id%></td>
           <td><%=article.title%></td>
           <td><%=article.slug%></td>
           <td><%= article.category.title%> </td>
-          <td>
-            <a href="/admin/articles/edit/<%= article.id%>" class="btn btn-warning">Editar</a>
+          <td class="col-2">
+            <a href="/admin/articles/edit/<%= article.id%>" class="btn btn-warning ">Editar</a>
            <form action="/articles/delete" style="display: inline;" method="post"onsubmit="confirmDelete(event,this)" >
               <input type="hidden" name="id" value="<%= article.id%>">
             <button class="btn btn-danger ">Deletar</button>

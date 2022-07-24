@@ -1,5 +1,7 @@
 const Sequelize =require("sequelize");
 const connection =require("../Database/connection");
+
+
 const Category =connection.define('categories',{
   title:{
     type:Sequelize.STRING,

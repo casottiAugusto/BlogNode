@@ -4,7 +4,7 @@
   "description": "Criando um blog em node.js  como painel administrativo.",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon index.js" 
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/casottiAugusto/BlogNode#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parse": "^0.1.0",
     "body-parser": "^1.20.0",
     "ejs": "^3.1.8",
@@ -27,6 +28,6 @@
     "tinymce": "^6.0.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.18"
+    "nodemon": "^2.0.19"
   }
 }

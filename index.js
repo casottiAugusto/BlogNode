@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParse = require('body-parser');
 const connection = require('./Database/connection');
+const session =require("express-session")
 //Controller e Modúlo 
 const categoriesController = require('./categories/catagoriesController');
 const Category = require('./categories/category');
@@ -18,6 +19,10 @@ senha:l5GfBf
 */
 //View Enginer
 app.set('view engine', 'ejs');
+// Configurar secoues 
+app.use(session({
+	secret:"sdfiasjhpofaksm",cookie:{maxAge:30000}
+}))
 //Body parser
 app.use(bodyParse.urlencoded({ extended: false }));
 app.use(bodyParse.json());

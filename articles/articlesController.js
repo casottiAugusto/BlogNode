@@ -11,13 +11,13 @@ router.get('/admin/articles',adminAuth, (req, res) => {
 		include:[{model:Category}]
 	}).then( articles=>{res.render('admin/articles/index',{articles:articles})
 })});
-router.get('/admin/articles/new', (req, res) => {
+router.get('/admin/articles/new',adminAuth, (req, res) => {
 	Category.findAll().then(categories=>{
 		res.render("admin/articles/new",{categories:categories})
 	})
 	
 })
-router.post("/articles/save",(req,res)=>{
+router.post("/articles/save",adminAuth,(req,res)=>{
 	var title = req.body.title;
 	var body =req.body.body;
 	var categoy =req.body.category;
@@ -32,7 +32,7 @@ router.post("/articles/save",(req,res)=>{
 		console.log(e);
 	})
 })
-router.get("/admin/articles/edit/:id",(req,res)=>{
+router.get("/admin/articles/edit/:id",adminAuth,(req,res)=>{
 	const id =req.params.id;
 	Article.findByPk(id).then(article=>{
 		if (id != undefined) {
@@ -48,7 +48,7 @@ router.get("/admin/articles/edit/:id",(req,res)=>{
 	})
 
 })
-router.post("/admin/update",(req,res)=>{
+router.post("/admin/update",adminAuth,(req,res)=>{
 let id  =req.body.idArticle;
 let title =req.body.title;
 let body  =req.body.body;
@@ -65,7 +65,7 @@ Article.update({title:title,body:body,categoryId:category,slug:slugfy(title)},{
 });
 });
 
-router.post('/articles/delete', (req, res) => {
+router.post('/articles/delete',adminAuth, (req, res) => {
 	var id = req.body.id;
 	if (id != undefined) {
 		if (!isNaN(id)) {
